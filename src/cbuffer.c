@@ -2,31 +2,13 @@
 
 #include "cbuffer.h"
 
-cbuffer_t * cbuffer_create(size_t size) {
-	cbuffer_t *buffer = malloc(sizeof (cbuffer_t));
-	if (buffer == NULL) return NULL;
+void cbuffer_init(cbuffer_t *buffer, void *array, size_t array_size) {
+	buffer->buff = array;
 
-	buffer->buff = malloc(size);
-	if (buffer->buff == NULL) {
-		cbuffer_destroy(buffer);
-		return NULL;
-	}
-
-	buffer->end_p = &buffer->buff[size];
+	buffer->end_p = &buffer->buff[array_size];
 	buffer->base_p = buffer->buff;
 	buffer->write_p = buffer->buff;
 	buffer->write_index = 0;
-
-	return buffer;
-}
-
-void cbuffer_destroy(cbuffer_t *buffer) {
-	if (buffer == NULL) return;
-
-	if (buffer->buff != NULL)
-		free(buffer->buff);
-
-	free(buffer);
 }
 
 size_t cbuffer_remaining(cbuffer_t *buffer) {

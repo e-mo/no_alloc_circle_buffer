@@ -19,8 +19,7 @@ typedef struct _circle_buffer {
 	size_t write_index;
 } cbuffer_t;
 
-cbuffer_t * cbuffer_create(size_t size);
-void cbuffer_destroy(cbuffer_t *buffer);
+void cbuffer_init(cbuffer_t *buffer, void *array, size_t array_size);
 
 // Returns remaining buffer space in bytes
 size_t cbuffer_remaining(cbuffer_t *buffer);
